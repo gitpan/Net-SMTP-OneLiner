@@ -1,7 +1,6 @@
 Makefile.PL
-t/00_signature.t
 t/05_load_them.t
 t/07_send_two.t
-SIGNATURE
 OneLiner.pm
 MANIFEST
+META.yml                                 Module meta-data (added by MakeMaker)

@@ -1,5 +1,5 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: OneLiner.pm,v 1.5 2004/03/23 13:14:48 jettero Exp $
+# $Id: OneLiner.pm,v 1.6 2004/03/25 17:46:19 jettero Exp $
 
 package Net::SMTP::OneLiner;
 
@@ -13,7 +13,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 
 our @EXPORT = qw( send_mail );
-our $VERSION = '1.1.1';
+our $VERSION = '1.1.2';
 
 our $HOSTNAME = "localhost";
 our $ELHO     = "localhost";
