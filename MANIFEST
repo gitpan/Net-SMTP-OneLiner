@@ -1,0 +1,6 @@
+Makefile.PL
+t/00_signature.t
+t/05_load_them.t
+SIGNATURE
+OneLiner.pm
+MANIFEST
