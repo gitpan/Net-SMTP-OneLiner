@@ -1,5 +1,5 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: OneLiner.pm,v 1.3 2004/01/16 16:51:08 jettero Exp $
+# $Id: OneLiner.pm,v 1.4 2004/02/24 13:21:17 jettero Exp $
 
 package Net::SMTP::OneLiner;
 
@@ -13,11 +13,18 @@ require Exporter;
 our @ISA = qw(Exporter);
 
 our @EXPORT = qw( send_mail );
-our $VERSION = '1.0';
+our $VERSION = '1.1';
+
+our $HOSTNAME = "localhost";
+our $ELHO     = "localhost";
+our $DEBUG    = 0;
+our $TIMEO    = 20;
+
+1;
 
 sub send_mail {
     my ($from, $to, $subj, $msg, $cc, $bcc, $labl) = @_;
-    my $smtp = Net::SMTP->new("localhost", Hello=>"localhost", Timeout=>20, Debug=>0) or croak "$!";
+    my $smtp = Net::SMTP->new($HOSTNAME, Hello=>$ELHO, Timeout=>$TIMEO, Debug=>$DEBUG) or croak "$!";
 
     $to = [ $to ] unless ref($to);
     $cc = []      unless ref($cc);
@@ -80,6 +87,30 @@ Net::SMTP::OneLiner - extension that polutes the local namespace with a send_mai
 
     # $to will take a scalar argument, $cc and $bcc will not.
     # At this time, the mail server, must be the localhost.
+
+=head1 VARS
+
+Hirosi Taguti requested a method for changing the SMTP host.  I provided that and a few other variables.
+The values listed are the defaults.
+
+=head2 $Net::SMTP::OneLiner::HOSTNAME = "localhost"
+
+The hostname of the SMTP server you wish to use.
+
+=head2 $Net::SMTP::OneLiner::EHLO = "localhost"
+
+The hostname you wish to send in the EHLO greeting.  It normally doesn't matter what you put here -- even if you change the
+HOSTNAME.
+
+=head2 $Net::SMTP::OneLiner::DEBUG = 0
+
+If this is set to true, OneLiner will tell Net::SMTP to spew forth many lines of debugging info.
+
+=head2 $Net::SMTP::OneLiner::TIMEO = 20
+
+Use this to change the communication timeout (in seconds) with the SMTP host.
+
+Your
 
 =head1 Bugs
 
