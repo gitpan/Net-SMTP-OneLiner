@@ -1,5 +1,5 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: OneLiner.pm,v 1.4 2004/02/24 13:21:17 jettero Exp $
+# $Id: OneLiner.pm,v 1.5 2004/03/23 13:14:48 jettero Exp $
 
 package Net::SMTP::OneLiner;
 
@@ -13,7 +13,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 
 our @EXPORT = qw( send_mail );
-our $VERSION = '1.1';
+our $VERSION = '1.1.1';
 
 our $HOSTNAME = "localhost";
 our $ELHO     = "localhost";
@@ -121,5 +121,21 @@ is not the case, he would like to know, so he can fix it.
 =head1 Author
 
 Jettero Heller jettero@cpan.org
+
+=head1 COPYRIGHT
+
+    GPL!  I included a gpl.txt for your reading enjoyment.
+
+    Though, additionally, I will say that I'll be tickled if you were to
+    include this package in any commercial endeavor.  Also, any thoughts to
+    the effect that using this module will somehow make your commercial
+    package GPL should be washed away.
+
+    I hereby release you from any such silly conditions.
+
+    This package and any modifications you make to it must remain GPL.  Any
+    programs you (or your company) write shall remain yours (and under
+    whatever copyright you choose) even if you use this package's intended
+    and/or exported interfaces in them.
 
 =cut
