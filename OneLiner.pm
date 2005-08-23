@@ -1,5 +1,5 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: OneLiner.pm,v 1.6 2004/03/25 17:46:19 jettero Exp $
+# $Id: OneLiner.pm,v 1.1 2005/08/23 11:13:43 jettero Exp $
 
 package Net::SMTP::OneLiner;
 
@@ -13,7 +13,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 
 our @EXPORT = qw( send_mail );
-our $VERSION = '1.1.2';
+our $VERSION = '1.2.0';
 
 our $HOSTNAME = "localhost";
 our $ELHO     = "localhost";
@@ -24,13 +24,20 @@ our $TIMEO    = 20;
 
 sub send_mail {
     my ($from, $to, $subj, $msg, $cc, $bcc, $labl) = @_;
-    my $smtp = Net::SMTP->new($HOSTNAME, Hello=>$ELHO, Timeout=>$TIMEO, Debug=>$DEBUG) or croak "$!";
+    my $smtp = Net::SMTP->new($HOSTNAME, Hello=>$ELHO, Timeout=>$TIMEO, Debug=>$DEBUG) or croak $!;
 
-    $to = [ $to ] unless ref($to);
-    $cc = []      unless ref($cc);
+    $to  = [ $to  ] unless ref $to;
+    $cc  = [ $cc  ] unless ref $cc;
+    $bcc = [ $bcc ] unless ref $bcc;
+
+    @$to  = grep {defined $_} @$to;
+    @$cc  = grep {defined $_} @$cc;
+    @$bcc = grep {defined $_} @$bcc;
+
+    croak "You need to specifie at least one recipient" unless (@$to + @$cc + @$bcc) > 0;
 
     $smtp->mail($from);
-    $smtp->to(@$to);
+    $smtp->to(@$to, @$cc, @$bcc);
 
     $smtp->data;
 
@@ -42,7 +49,7 @@ sub send_mail {
     $cc = join(", ", @$cc);
 
     $smtp->datasend("From: $from\n");
-    $smtp->datasend("To: $to\n");
+    $smtp->datasend("To: $to\n") if $to;
     $smtp->datasend("CC: $cc\n") if $cc;
     $smtp->datasend("Subject: $subj\n\n");
 
@@ -85,7 +92,6 @@ Net::SMTP::OneLiner - extension that polutes the local namespace with a send_mai
 
     send_mail('me@domain', 'you@domain', "heyya there", "supz!?!?");
 
-    # $to will take a scalar argument, $cc and $bcc will not.
     # At this time, the mail server, must be the localhost.
 
 =head1 VARS
@@ -110,13 +116,15 @@ If this is set to true, OneLiner will tell Net::SMTP to spew forth many lines of
 
 Use this to change the communication timeout (in seconds) with the SMTP host.
 
-Your
-
 =head1 Bugs
 
 Please report bugs immediately!  The author has not tested this
 module worth a lick -- expecting it to work just fine.  If this
 is not the case, he would like to know, so he can fix it.
+
+=head2 Bad BCC: Bug
+
+BCC: recipients were not working at all!  Thanks to Stephen Thomas for finding this bug.
 
 =head1 Author
 

@@ -4,3 +4,5 @@ t/07_send_two.t
 OneLiner.pm
 MANIFEST
 META.yml                                 Module meta-data (added by MakeMaker)
+Changes
+README
