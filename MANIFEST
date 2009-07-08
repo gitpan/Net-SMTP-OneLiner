@@ -1,9 +1,12 @@
+.perlcriticrc
+Changes
+MANIFEST
 Makefile.PL
+OneLiner.pm
+OneLiner.pod
+README
 t/05_load_them.t
 t/07_send_one.t
-OneLiner.pm
-MANIFEST
+t/critic.t
+t/pod.t
 META.yml                                 Module meta-data (added by MakeMaker)
-Changes
-README
-lgpl-2.1.txt.gz

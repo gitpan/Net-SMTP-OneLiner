@@ -1,10 +1,8 @@
-# vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 07_send_two.t,v 1.1 2005/08/23 11:13:43 jettero Exp $
 
 use strict;
 use Test;
 
-if( $ENV{SKIP_07} or not($ENV{HOSTNAME} =~ m/^corky/ and $ENV{USER} eq "jettero") ) {
+if( $ENV{SKIP_07} or not($ENV{HOSTNAME} =~ m/^corky/ and $ENV{TEST_AUTHOR}) ) {
     plan tests => 1;
     skip(1,0,1);
     exit;
